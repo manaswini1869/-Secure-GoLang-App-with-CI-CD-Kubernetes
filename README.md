@@ -1,17 +1,12 @@
-This repo is for the video below 
-
-
-[![Conplete DevOps Project](https://img.youtube.com/vi/kCWAwXFnYic/0.jpg)](https://www.youtube.com/watch?v=kCWAwXFnYic)
-
-# Running Locally 
+# Running Locally
 ## Initialising for base image
 ```
 bsf init
-``` 
+```
 ## Building OCI artifact using bsf and ko
 ```
 bsf oci pkgs --platform=linux/amd64 --tag=prod-v1 --push --dest-creds {Dockerhub username}:{dockerhub password}
-KO_DOCKER_REPO=saiyam911/devops-project KO_DEFAULTBASEIMAGE=saiyam911/devops-proj:base ko build --bare -t v1 . (change your image names here)
+KO_DOCKER_REPO=manaswinig/devops-project KO_DEFAULTBASEIMAGE=manaswinig/devops-proj:base ko build --bare -t v1 . (change your image names here)
 ```
 ## Running using Docker
 ```
@@ -35,21 +30,21 @@ docker run -d \
  ttl.sh/devops-project-1a3a3957a5f042748486580be307ed8e@sha256:9ae320cdf05700210dd50ebefa6b3cd4a11ca2feaad1946f6715e0ec725bda62
 ```
 
-## Cluster creatiom 
+## Cluster creatiom
 ```ksctl create-cluster azure --name=application --version=1.29```
 
-## Switching the KubeConfig file 
+## Switching the KubeConfig file
 ```ksctl switch-cluster --provider azure --region eastus --name devops-project```
 
 ## Exporting Kubeconfig
-```export KUBECONFIG="/Users/saiyam/.ksctl/kubeconfig"```              
+```export KUBECONFIG="/Users/saiyam/.ksctl/kubeconfig"```
 
-## Installing basic componenets cert manager, nginx fabric for gateway API, Prometheus. for monitoring and Grafana for visualization. 
+## Installing basic componenets cert manager, nginx fabric for gateway API, Prometheus. for monitoring and Grafana for visualization.
 ### Cert manager
 ```
 kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.15.3/cert-manager.yaml
 ```
-Edit cert-manager deployment 
+Edit cert-manager deployment
 ```
 - --enable-gateway-api
 ```
@@ -76,7 +71,7 @@ helm install ngf oci://ghcr.io/nginxinc/charts/nginx-gateway-fabric --create-nam
 ```
 
 
-## Install Cloudnative postgress DB 
+## Install Cloudnative postgress DB
 ```
 kubectl apply --server-side -f https://raw.githubusercontent.com/cloudnative-pg/cloudnative-pg/release-1.23/releases/cnpg-1.23.1.yaml
 ```
@@ -97,7 +92,7 @@ spec:
       owner: goals_user
       secret:
         name: my-postgresql-credentials
-EOF        
+EOF
 ```
 ### Creating secret for cluster
 ```
@@ -117,9 +112,9 @@ CREATE TABLE goals (
 "
 ```
 
-### Create secret to be used by the application 
+### Create secret to be used by the application
 ```
-cat << EOF | kubectl apply -f - 
+cat << EOF | kubectl apply -f -
 apiVersion: v1
 kind: Secret
 metadata:
@@ -137,21 +132,21 @@ EOF
 kubectl apply -f deploy/deploy,yaml
 ```
 
-## Argocd installation 
+## Argocd installation
 ```
 kubectl create namespace argocd
 kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
 kubectl patch configmap argocd-cmd-params-cm  -n argocd --patch '{"data":{"server.insecure":"true"}}'
 kubectl rollout restart deployment argocd-server -n argocd
-kubectl get secret --namespace argocd argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 --decode ; echo 
+kubectl get secret --namespace argocd argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 --decode ; echo
 ```
 
-## Create Route for ArgoCD 
+## Create Route for ArgoCD
 ```
 kubectl apply -f route-argo.yaml
 kubectl apply -f referencegrant
 ```
-## Load testing 
+## Load testing
 ```
 k6s run load.js
 ```
