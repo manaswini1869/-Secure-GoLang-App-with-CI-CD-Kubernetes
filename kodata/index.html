@@ -1,12 +1,16 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Kubesimplify DevOps Project Completed!</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Automation of Golang Application</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
             background-color: #f4f4f4;
             color: #333;
+            margin: 0;
+            padding: 0;
         }
         .container {
             width: 80%;
@@ -46,7 +50,7 @@
             background-color: #45a049;
         }
         .goal-list {
-            list-style-type: none;
+            list-style: none;
             padding: 0;
         }
         .goal-item {
@@ -68,10 +72,6 @@
         .delete-button:hover {
             background-color: #e53935;
         }
-        .logo {
-            display: block;
-            margin: 0 auto 20px;
-        }
         footer {
             text-align: center;
             margin-top: 30px;
@@ -82,29 +82,29 @@
 </head>
 <body>
     <div class="container">
-        <img src="https://avatars.githubusercontent.com/u/101195255?s=200&v=4" alt="Kubernetes Logo" class="logo">
-        <h2>Kubesimplify viewers are awesome!  </h2>
+        <h2>Automation of Golang Application</h2>
+
         <form action="/add_goal" method="post">
-            <input type="text" name="goal_name" placeholder="Enter your goal">
+            <input type="text" name="goal_name" placeholder="Enter your goal" required>
             <button type="submit">Add Goal</button>
         </form>
+
         {{ if .goals }}
         <ul class="goal-list">
             {{ range .goals }}
-                <li class="goal-item">
-                    {{ .Name }}
-                    <form action="/remove_goal" method="post" style="display: inline;">
-                        <input type="hidden" name="goal_id" value="{{ .ID }}">
-                        <button type="submit" class="delete-button">Delete</button>
-                    </form>
-                </li>
+            <li class="goal-item">
+                <span>{{ .Name }}</span>
+                <form action="/remove_goal" method="post" style="display: inline;">
+                    <input type="hidden" name="goal_id" value="{{ .ID }}">
+                    <button type="submit" class="delete-button">Delete</button>
+                </form>
+            </li>
             {{ end }}
         </ul>
         {{ end }}
+
     </div>
-    <footer>
-        @saiyampathak
-    </footer>
+
     <script>
         document.querySelectorAll('form').forEach(form => {
             form.onsubmit = () => setTimeout(() => location.reload(), 500); // Reload page after a short delay
@@ -112,4 +112,3 @@
     </script>
 </body>
 </html>
-
