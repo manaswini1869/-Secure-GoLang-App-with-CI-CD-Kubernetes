@@ -5,7 +5,7 @@ metadata:
   labels:
     app: my-app
 spec:
-  replicas: 3 
+  replicas: 3
   selector:
     matchLabels:
       app: my-app
@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: my-app
-        image: docker.io/saiyam911/devops-project:{{ image_deploy_tag }}
+        image: docker.io/manaswinig/golang-autoect:{{ image_deploy_tag }}
         imagePullPolicy: Always
         env:
         - name: DB_USERNAME

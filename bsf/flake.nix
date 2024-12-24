@@ -113,7 +113,7 @@
 
 
 		ociImage_pkgs_runtime = nix2containerPkgs.nix2container.buildImage {
-			name = "saiyam911/devops-kube-proj";
+			name = "manaswinig/devops-kube-proj";
 			config = {
 				cmd = [  ];
 
@@ -137,7 +137,7 @@
 		};
 
 		ociImage_pkgs_dev = nix2containerPkgs.nix2container.buildImage {
-			name = "saiyam911/devops-kube-proj";
+			name = "manaswinig/devops-kube-proj";
 			config = {
 				cmd = [  ];
 
