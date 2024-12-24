@@ -1,3 +1,8 @@
+# Project Architecture
+The project architecture is designed to be modular, scalable, and maintainable.
+![architecture image](images/Screenshot%20(11).png)
+![metrics images](images/Screenshot%20(12).png)
+![argo deployment](images/Screenshot%20(13).png)
 # Running Locally
 ## Initialising for base image
 ```
